@@ -1,6 +1,24 @@
 import { Github, Linkedin, Mail, ArrowUp, Heart, Code, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const Footer = () => {
+  const [showScroll, setShowScroll] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      
+      setScrollProgress(scrollPercent);
+      setShowScroll(scrollTop > 400);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -131,15 +149,48 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Scroll to Top Button */}
-      <button
-        onClick={scrollToTop}
-        className="absolute -top-6 right-8 p-4 rounded-full bg-gradient-to-r from-primary via-accent to-secondary hover:scale-110 transition-all duration-300 shadow-2xl shadow-primary/50 group overflow-hidden"
-        aria-label="Scroll to top"
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-secondary via-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <ArrowUp className="h-5 w-5 text-white relative z-10 group-hover:scale-110 transition-transform" />
-      </button>
+      {/* Scroll to Top Button - Fixed Position */}
+      {showScroll && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-50 p-4 rounded-full bg-gradient-to-r from-primary via-accent to-secondary hover:scale-110 active:scale-95 transition-all duration-500 shadow-2xl shadow-primary/50 group overflow-hidden animate-fade-in"
+          style={{
+            animation: "fade-in 0.3s ease-out, float 3s ease-in-out infinite"
+          }}
+          aria-label="Scroll to top"
+        >
+          {/* Progress Ring */}
+          <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="text-primary/20"
+            />
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeDasharray="283"
+              strokeDashoffset={283 - (283 * scrollProgress) / 100}
+              className="text-primary transition-all duration-300"
+              strokeLinecap="round"
+            />
+          </svg>
+          
+          {/* Animated Background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary via-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-gradient" />
+          
+          {/* Icon with Bounce Animation */}
+          <ArrowUp className="h-5 w-5 text-white relative z-10 group-hover:-translate-y-1 group-hover:scale-110 transition-all duration-300" />
+        </button>
+      )}
     </footer>
   );
 };
