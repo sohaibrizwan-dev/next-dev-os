@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
-import Navigation from "@/components/Navigation";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Services from "@/components/Services";
-import Projects from "@/components/Projects";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
 import Preloader from "@/components/Preloader";
+import Desktop from "@/components/desktop/Desktop";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,20 +14,11 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  return (
-    <>
-      <Preloader />
-      <div className="min-h-screen bg-background text-foreground">
-        <Navigation />
-        <Hero />
-        <About />
-        <Services />
-        <Projects />
-        <Contact />
-        <Footer />
-      </div>
-    </>
-  );
+  if (isLoading) {
+    return <Preloader />;
+  }
+
+  return <Desktop />;
 };
 
 export default Index;
