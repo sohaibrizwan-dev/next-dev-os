@@ -51,9 +51,7 @@ export default {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-primary': 'linear-gradient(135deg, hsl(190, 100%, 50%), hsl(270, 60%, 50%))',
-        'gradient-cyber': 'linear-gradient(135deg, hsl(190, 100%, 50%) 0%, hsl(340, 100%, 65%) 50%, hsl(270, 60%, 50%) 100%)',
-        'gradient-glow': 'radial-gradient(circle at center, hsl(190, 100%, 50%, 0.3), transparent)',
+        'gradient-primary': 'linear-gradient(135deg, hsl(250, 70%, 60%), hsl(280, 80%, 70%))',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -85,14 +83,6 @@ export default {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.5" }
         },
-        "neon-pulse": {
-          "0%, 100%": { opacity: "1", filter: "brightness(1)" },
-          "50%": { opacity: "0.8", filter: "brightness(1.2)" }
-        },
-        "scan-line": {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(100%)" }
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -101,8 +91,6 @@ export default {
         "slide-up": "slide-up 0.8s ease-out",
         "scale-in": "scale-in 0.5s ease-out",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
-        "neon-pulse": "neon-pulse 2s ease-in-out infinite",
-        "scan-line": "scan-line 4s linear infinite",
       },
     },
   },
